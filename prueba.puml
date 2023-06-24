@@ -1,0 +1,66 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class com.panamahitek.ArduinoException
+class com.panamahitek.PanamaHitek_Arduino
+class controlador.Ctrl
+class java.sql.Connection
+class java.sql.PreparedStatement
+class java.sql.ResultSet
+class java.sql.ResultSetMetaData
+class java.util.Calendar
+class java.util.GregorianCalendar
+class java.util.logging.Level
+class java.util.logging.Logger
+class javax.swing.JFrame
+class javax.swing.table.DefaultTableModel
+class jssc.SerialPortEvent
+class jssc.SerialPortEventListener
+class jssc.SerialPortException
+class modelo.Conexion
+class modelo.Registro
+class org.jfree.chart.ChartFactory
+class org.jfree.chart.ChartPanel
+class org.jfree.chart.JFreeChart
+class org.jfree.chart.plot.PlotOrientation
+class org.jfree.data.xy.XYSeries
+class org.jfree.data.xy.XYSeriesCollection
+class vista.BuscarReg
+class vista.CRUD
+class vista.frmMenuPrincipal
+vista.BuscarReg ..> java.lang.SuppressWarnings
+vista.BuscarReg ..> java.sql.Connection
+vista.BuscarReg ..> java.sql.PreparedStatement
+vista.BuscarReg ..> java.sql.ResultSet
+vista.BuscarReg ..> java.sql.ResultSetMetaData
+vista.BuscarReg --|> javax.swing.JFrame
+vista.BuscarReg ..> javax.swing.table.DefaultTableModel
+vista.BuscarReg ..> modelo.Conexion
+vista.CRUD ..> java.lang.SuppressWarnings
+vista.CRUD ..> controlador.Ctrl
+vista.CRUD --|> javax.swing.JFrame
+vista.frmMenuPrincipal ..> java.lang.Override
+vista.frmMenuPrincipal ..> java.lang.SuppressWarnings
+vista.frmMenuPrincipal ..> com.panamahitek.ArduinoException
+vista.frmMenuPrincipal ..> com.panamahitek.PanamaHitek_Arduino
+vista.frmMenuPrincipal ..> controlador.Ctrl
+vista.frmMenuPrincipal ..> java.sql.Connection
+vista.frmMenuPrincipal ..> java.sql.PreparedStatement
+vista.frmMenuPrincipal ..> java.sql.ResultSet
+vista.frmMenuPrincipal ..> java.util.Calendar
+vista.frmMenuPrincipal ..> java.util.GregorianCalendar
+vista.frmMenuPrincipal ..> java.util.logging.Level
+vista.frmMenuPrincipal ..> java.util.logging.Logger
+vista.frmMenuPrincipal --|> javax.swing.JFrame
+vista.frmMenuPrincipal ..> jssc.SerialPortEvent
+vista.frmMenuPrincipal ..> jssc.SerialPortEventListener
+vista.frmMenuPrincipal ..> jssc.SerialPortException
+vista.frmMenuPrincipal ..> modelo.Conexion
+vista.frmMenuPrincipal ..> modelo.Registro
+vista.frmMenuPrincipal ..> org.jfree.chart.ChartFactory
+vista.frmMenuPrincipal ..> org.jfree.chart.ChartPanel
+vista.frmMenuPrincipal ..> org.jfree.chart.JFreeChart
+vista.frmMenuPrincipal ..> org.jfree.chart.plot.PlotOrientation
+vista.frmMenuPrincipal ..> org.jfree.data.xy.XYSeries
+vista.frmMenuPrincipal ..> org.jfree.data.xy.XYSeriesCollection
+@enduml
