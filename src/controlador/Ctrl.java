@@ -5,7 +5,12 @@ import modelo.ConsultaRegistroProg;
 import vista.frmRegProgCRUD;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -54,13 +59,33 @@ public class Ctrl implements ActionListener {
                 String tmpMax = (String) vista.tabla.getValueAt(fila, 4);
                 String tmpMin = (String) vista.tabla.getValueAt(fila, 5);
                 String CodUsu = (String) vista.tabla.getValueAt(fila, 6);
+
                 vista.txtNum_prog.setText("" + numProg);
-                vista.txtFecha.setText(fecha);
-                vista.txtHoraIni.setText(horaIni);
-                vista.txtHoraFin.setText(horaFin);
-                vista.txtTmpMax.setText(tmpMax);
-                vista.txtTmpMin.setText(tmpMin);
-                vista.txtUsuario.setText(CodUsu);
+                //inicio para la fecha con jcalendar
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date fecha2 = dateFormat.parse(fecha);
+                    vista.fechajc.setDate(fecha2);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Ctrl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Inicio para la hora con combobox
+                String[] partesI = horaIni.split(":");
+                String horaI = partesI[0];
+                String minutoI = partesI[1];
+                vista.cbHoraIni.setSelectedItem(horaI);
+                vista.cbMinutoIni.setSelectedItem(minutoI);
+
+                String[] partesF = horaFin.split(":");
+                String horaF = partesF[0];
+                String minutoF = partesF[1];
+                vista.cbHoraFin.setSelectedItem(horaF);
+                vista.cbMinutoFin.setSelectedItem(minutoF);
+
+                vista.cbTempMax.setSelectedItem(tmpMax);
+                vista.cbTempMin.setSelectedItem(tmpMin);
+                vista.cbUsuario.setSelectedItem(CodUsu);
+
             }
         }
         if (e.getSource() == vista.btnActualizar) {
@@ -80,13 +105,21 @@ public class Ctrl implements ActionListener {
 
     void nuevo() {
         vista.txtNum_prog.setText("");
-        vista.txtFecha.setText("");
-        vista.txtHoraFin.setText("");
-        vista.txtHoraIni.setText("");
-        vista.txtTmpMax.setText("");
-        vista.txtTmpMin.setText("");
-        vista.txtUsuario.setText("");
-        vista.txtFecha.requestFocus();
+        //inicio para la fecha con jcalendar - Hoy
+        Date fechaHoy = new Date();
+        vista.fechajc.setDate(fechaHoy);
+
+        //inicio para la hora combobox
+        vista.cbHoraIni.setSelectedItem("00");
+        vista.cbMinutoIni.setSelectedItem("00");
+        vista.cbHoraFin.setSelectedItem("00");
+        vista.cbMinutoFin.setSelectedItem("00");
+
+        vista.cbTempMax.setSelectedItem("0");
+        vista.cbTempMin.setSelectedItem("0");
+        vista.cbUsuario.setSelectedItem("U000000001");
+
+        vista.fechajc.requestFocus();
     }
 
     public void delete() {
@@ -102,12 +135,23 @@ public class Ctrl implements ActionListener {
     }
 
     public void add() {
-        String fecha = vista.txtFecha.getText();
-        String horaIni = vista.txtHoraIni.getText();
-        String horaFin = vista.txtHoraFin.getText();
-        String tmpMax = vista.txtTmpMax.getText();
-        String tmpMin = vista.txtTmpMin.getText();
-        String CodUsu = vista.txtUsuario.getText();
+
+        //inicio para la fecha con jcalendar
+        Date fechaCrudo = vista.fechajc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = dateFormat.format(fechaCrudo);
+        //inicio para la hora con combobox
+        String horaI = (String) vista.cbHoraIni.getSelectedItem();
+        String minutoI = (String) vista.cbMinutoIni.getSelectedItem();
+        String horaIni = horaI + ":" + minutoI;
+
+        String horaF = (String) vista.cbHoraFin.getSelectedItem();
+        String minutoF = (String) vista.cbMinutoFin.getSelectedItem();
+        String horaFin = horaF + ":" + minutoF;
+
+        String tmpMax = (String) vista.cbTempMax.getSelectedItem();
+        String tmpMin = (String) vista.cbTempMin.getSelectedItem();
+        String CodUsu = (String) vista.cbUsuario.getSelectedItem();
 
         re.setFecha(fecha);
         re.setHoraIni(horaIni);
@@ -130,12 +174,22 @@ public class Ctrl implements ActionListener {
             JOptionPane.showMessageDialog(vista, "No se Identifica el Numero de programa, debe selecionar la opcion Editar");
         } else {
             String numProg = vista.txtNum_prog.getText();
-            String fecha = vista.txtFecha.getText();
-            String horaIni = vista.txtHoraIni.getText();
-            String horaFin = vista.txtHoraFin.getText();
-            String tmpMax = vista.txtTmpMax.getText();
-            String tmpMin = vista.txtTmpMin.getText();
-            String CodUsu = vista.txtUsuario.getText();
+            //inicio para la fecha con jcalendar
+            Date fechaCrudo = vista.fechajc.getDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha = dateFormat.format(fechaCrudo);
+            //inicio para la Hora con combobox
+            String horaI = (String) vista.cbHoraIni.getSelectedItem();
+            String minutoI = (String) vista.cbMinutoIni.getSelectedItem();
+            String horaIni = horaI + ":" + minutoI;
+
+            String horaF = (String) vista.cbHoraFin.getSelectedItem();
+            String minutoF = (String) vista.cbMinutoFin.getSelectedItem();
+            String horaFin = horaF + ":" + minutoF;
+
+            String tmpMax = (String) vista.cbTempMax.getSelectedItem();
+            String tmpMin = (String) vista.cbTempMin.getSelectedItem();
+            String CodUsu = (String) vista.cbUsuario.getSelectedItem();
 
             re.setNum_prog(numProg);
             re.setFecha(fecha);

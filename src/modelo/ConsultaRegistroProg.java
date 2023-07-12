@@ -17,7 +17,8 @@ public class ConsultaRegistroProg {
         List<RegistroProg> datos = new ArrayList<>();
         try {
             con = conectar.getConnection();
-            ps = con.prepareStatement("select * from tab_registro");
+            //ps = con.prepareStatement("SELECT * FROM tab_registro");
+            ps = con.prepareStatement("SELECT * FROM tab_registro WHERE Fecha BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 3 DAY)");
             rs = ps.executeQuery();
             while (rs.next()) {
                 RegistroProg reg = new RegistroProg();
